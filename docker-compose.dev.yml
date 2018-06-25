@@ -1,0 +1,61 @@
+version: '3'
+services:
+  wallet:
+    build:
+      build:
+        context: .
+        args:
+          REPOSITORY: 'https://github.com/artaxcommittee/Artax'
+          REF: master
+    restart: always
+    ports:
+      - '21526:21526'
+      - '21527:21527'
+    command:
+      - '-rpcuser=artax-wallet'
+      - '-rpcpassword=q4qwsaha'
+      - '-server=1'
+      - '-listen=0'
+    volumes:
+      - './wallet/:/home/artax/'
+  masternode:
+    build:
+      build:
+        context: .
+        args:
+          REPOSITORY: 'https://github.com/artaxcommittee/Artax'
+          REF: master
+    restart: always
+    ports:
+      - '21526:21526'
+      - '21527:21527'
+    command:
+      - '-rpcuser=artax-mn01'
+      - '-rpcpassword=q4qwsaha'
+      - '-rpcallowip=::/0'
+      - '-server=0'
+      - '-listen=1'
+      - '-masternode=1'
+      - '-masternodeprivkey=YourMasternodePrivKey'
+      - '-addnode=45.32.233.39:21527'
+      - '-addnode=144.202.74.29:21527'
+      - '-addnode=199.247.0.99:21527'
+      - '-addnode=35.185.28.120:21527'
+      - '-addnode=45.32.22.238:21527'
+      - '-addnode=140.82.60.29:21527'
+      - '-addnode=108.61.252.205:21527'
+      - '-addnode=45.63.82.193:21527'
+      - '-addnode=46.101.48.90:21527'
+      - '-addnode=132.148.139.228:21527'
+      - '-addnode=121.63.252.178:21512'
+      - '-addnode=199.247.6.97:21527'
+      - '-addnode=173.208.188.35:21527'
+      - '-addnode=52.47.168.149:21527'
+      - '-addnode=144.202.36.100:21544'
+      - '-addnode=207.148.0.96:21527'
+      - '-addnode=54.37.72.144:21532'
+      - '-addnode=104.207.143.189:21527'
+      - '-addnode=165.227.87.76:21529'
+      - '-addnode=207.154.194.110:21527'
+    volumes:
+      - './masternode/:/home/artax/'
